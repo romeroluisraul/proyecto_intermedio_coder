@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="w3-card-4 w3-margin w3-white">
+    <div class="w3-container">
+        <h3><b>P&aacutegina de Comentarios del Post</b></h3>
+        <h4><b>{{title}}</b></h4>
+        <h5>{{title_description}}<span class="w3-opacity">{{fecha}}</span></h5>
+    </div>
+    <div class="w3-container">
+        <p align="justify">Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non congue ullam corper. Praesent tincidunt sed
+        tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
+    </div>
+</div>
+<hr>
+
+    {% for comentario in lista_comentarios %}
+
+        <div class="w3-card-4 w3-margin w3-white">
+            <div class="w3-container"> 
+                <h5><b>{{comentario.commentarist}}</b></h5>
+                <h5><span class="w3-opacity">{{comentario.date_commentary}}</span></h5>
+            </div>
+            <div class="w3-container">
+                <p align="justify">{{comentario.text_commentary}}</p>
+            </div>
+        </div>
+        <hr>
+
+    {% endfor %}
+
+{% endblock %}

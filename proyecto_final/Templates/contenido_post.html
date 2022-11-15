@@ -2,7 +2,7 @@
 
 <img src= "{% static 'sierra_quijadas.jpg' %}" alt="Parque Nacional Sierra de las Quijadas" title="PN Sierra de las Quijadas, San Luis, AR"style="width:100%" height="646px">
 <div class="w3-container">
-  <h3><b>Explorando Parques Nacionales</b></h3>
+  <h3><b>{{title}}</b></h3>
   <h5>{{title_description}}<span class="w3-opacity">{{fecha}}</span></h5>
 </div>
 
@@ -59,7 +59,7 @@
     </div>
     
     <div class="w3-col m4 w3-hide-small">
-      <p><span class="w3-padding-large w3-right"><b>Comments  </b> <span class="w3-badge">0</span></span></p>
+        <p><span class="w3-padding-large w3-right"><a href="{% url 'comentarios' %}" style="text-decoration:none"><b>Comments </b><span class="w3-badge">{{cantidad_comentarios}}</a></span></span></p>
     </div>
   </div>
 </div>

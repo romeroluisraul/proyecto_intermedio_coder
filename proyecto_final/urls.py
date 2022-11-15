@@ -20,5 +20,6 @@ from parques_nacionales.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('home/', home, name = 'home'),
-    path('explorando_parques/', explorando, name='explorando_parques')
+    path('explorando_parques/', explorando, name='explorando_parques'),
+    path('explorando_parques/commentaries/', comentarios, name='comentarios')
 ]
