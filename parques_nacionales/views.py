@@ -11,6 +11,7 @@ def home(request):
 
     plantilla = loader.get_template('home.html')
     contexto_global['home_url'] = request.get_full_path() == '/home/'
+    contexto_global['post_url'] = request.get_full_path() == '/explorando_parques/'
     documento = plantilla.render(contexto_global)
 
     return HttpResponse(documento)
@@ -19,6 +20,7 @@ def explorando(request):
 
     plantilla = loader.get_template('post.html')
     contexto_global['home_url'] = request.get_full_path() == '/home/'
+    contexto_global['post_url'] = request.get_full_path() == '/explorando_parques/'
     documento = plantilla.render(contexto_global)
 
     return HttpResponse(documento)
