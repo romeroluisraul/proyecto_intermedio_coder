@@ -8,7 +8,7 @@
 
 <div class="w3-container">
   <p align="justify">Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non congue ullam corper. Praesent tincidunt sed
-    tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
+    tellus ut rutrum. Sed vitae justo condimentum.</p>
   {% if post_url %}
   <p align="justify">
     Proin tristique rutrum nisl, eget tempor dui ullamcorper in. Mauris sollicitudin felis eget nibh volutpat, ac sagittis elit tristique. Pellentesque blandit lectus eu sagittis sodales. Maecenas hendrerit sapien ac massa dictum, a volutpat felis commodo. 
@@ -34,7 +34,7 @@
   Suspendisse mauris velit, ornare id tristique eu, blandit eget nisi. Cras feugiat hendrerit neque a iaculis. Vestibulum in tortor dui. Pellentesque ullamcorper efficitur felis eget faucibus. Etiam hendrerit gravida mauris non ultricies.
   </p>
   <p style="text-align:center;">
-  <img src= "{% static 'mas_castores_pntf.jpg' %}" alt="Castores en Parque Nacional Tierra del Fuego" title="Daños provocados por los castores en el PN Tierra del Fuego, AR" style="width:83%" >
+  <img src= "{% static 'talampaya.jpg' %}" alt="Parque Nacional Talampaya" title="PN Talampaya, La Rioja, AR" style="width:83%" >
   </p>
   <p align="justify">
     Duis nunc eros, vulputate eu est nec, fermentum elementum orci. Nulla porttitor eleifend ante id scelerisque. Curabitur vitae ante odio. Nulla mattis luctus mauris, in commodo eros iaculis non. Nunc fermentum arcu nunc, quis pulvinar felis fermentum vel. 
@@ -50,7 +50,7 @@
   <div class="w3-row">
     <div class="w3-col m8 s12">
     {% if not post_url %}
-      <p><form action= {% url 'explorando_parques' %}>
+      <p><form action="{% url 'explorando_parques' %}">
         <button class="w3-button w3-padding-large w3-white w3-border" type = 'submit'><b>READ MORE »</b></button>
       </form></p>
     {% else %}

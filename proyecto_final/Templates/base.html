@@ -79,11 +79,11 @@ and is wrapped around the whole page content, except for the footer in this exam
       <h4>Tags</h4>
     </div>
     <div class="w3-container w3-white">
-    <p><span class="w3-tag w3-black w3-margin-bottom">Travel</span>
+    <p><span class="w3-tag w3-black w3-margin-bottom"><a href="/busqueda/Tr/" style="text-decoration:none">Travel</a></span>
       <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">Argentina</span>
       <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">Chile</span>
-      <span class="w3-tag w3-black w3-margin-bottom">Cuyo</span>
-      <span class="w3-tag w3-black w3-margin-bottom">Patagonia</span>
+      <span class="w3-tag w3-black w3-margin-bottom"><a href="/busqueda/Cy/" style="text-decoration:none">Cuyo</a></span>
+      <span class="w3-tag w3-black w3-margin-bottom"><a href="/busqueda/Pat/" style="text-decoration:none">Patagonia</a></span>
       <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">Lagos</span>
       <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">Ideas</span>
       <span class="w3-tag w3-light-grey w3-small w3-margin-bottom">Rutas</span>
@@ -110,7 +110,7 @@ and is wrapped around the whole page content, except for the footer in this exam
 <footer class="w3-container w3-dark-grey w3-padding-32 w3-margin-top">
   <p>
   {% if not home_url %}
-    <form action= {% url 'home' %} style="display:inline-block">
+    <form action="{% url 'home' %}" style="display:inline-block">
     <button class="w3-button w3-black w3-padding-large w3-margin-bottom" type="submit">Home</button>
     </form>
   {% else %}

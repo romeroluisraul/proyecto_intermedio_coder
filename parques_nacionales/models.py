@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import date
 
 class Users(models.Model):
 
@@ -27,6 +28,16 @@ class Post(models.Model):
                     (PARQUES, 'Parques'), (LAGOS, 'Lagos'), (RUTAS, 'Rutas'), (MONTANIAS, 'Montañas'),
                     (IDEAS, 'Ideas'), (RATA_TIPS, 'Rata-tips')]
 
-    tags = models.CharField(max_length=4, choices=TAGS_CHOICES)
-    post_title = models.TextField(max_length=50)
-    url = models.URLField()
+    tag1 = models.CharField(max_length=4, choices=TAGS_CHOICES)
+    tag2 = models.CharField(max_length=4, choices=TAGS_CHOICES)
+    url = models.CharField(max_length=50)
+    title = models.TextField(max_length=50)
+    subtitle = models.TextField(max_length=80)
+    image = models.CharField(max_length=50)
+    image_alt = models.CharField(max_length=50)
+    image_title = models.CharField(max_length=50)
+    readmore_avaliable = models.BooleanField()
+    description = models.TextField(max_length=300)
+    date = models.DateField(default=date.today())
+
+

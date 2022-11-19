@@ -4,6 +4,7 @@ from django.template import loader
 from parques_nacionales.models import *
 from datetime import date
 from parques_nacionales.forms import *
+from django.db.models import Q
 
 contexto_global = {'fecha': date(year=2022,month=11,day=12).strftime("%a %B %d, %Y"),
                 'anio' : str(date.today().year),
@@ -18,7 +19,6 @@ def home(request):
 
     contexto_global['home_url'] = request.get_full_path() == '/home/'
     contexto_global['post_url'] = request.get_full_path() == '/explorando_parques/'
-    contexto_global['pagina_actual'] = request.get_full_path()
     contexto_global['lista_comentarios'] = lista_comentarios
     contexto_global['cantidad_comentarios'] = len(lista_comentarios)
 
@@ -33,7 +33,6 @@ def explorando(request):
 
     contexto_global['home_url'] = request.get_full_path() == '/home/'
     contexto_global['post_url'] = request.get_full_path() == '/explorando_parques/'
-    contexto_global['pagina_actual'] = request.get_full_path()
     contexto_global['lista_comentarios'] = lista_comentarios
     contexto_global['cantidad_comentarios'] = len(lista_comentarios)
 
@@ -48,7 +47,6 @@ def comentarios(request):
 
     contexto_global['home_url'] = request.get_full_path() == '/home/'
     contexto_global['post_url'] = request.get_full_path() == '/explorando_parques/'
-    contexto_global['pagina_actual'] = request.get_full_path()
     contexto_global['lista_comentarios'] = lista_comentarios
     contexto_global['cantidad_comentarios'] = len(lista_comentarios)
     contexto_global['script'] = False
@@ -80,8 +78,32 @@ def comentarios(request):
     
     return render(request, 'comentarios.html', contexto_global)
 
-def tags(request):
-    
+def tags(request, tag):
 
+    etiqueta = tag
+    posts = Post.objects.filter(Q(tag1__icontains=etiqueta) | Q(tag2__icontains=etiqueta))
 
-    return redirect(contexto_global['pagina_actual'])
+    def choices(tag):
+
+        TRAVEL,AR,CL = 'TR','AR','CL'
+        CUYO, PATAGONIA, COSTA, BUENOS_AIRES, CENTRO = 'CY','PAT','MDP','BSAS','COB'
+        PARQUES, LAGOS, RUTAS, MONTANIAS = 'PN','LG','RN','MNT'
+        IDEAS, RATA_TIPS = 'ID','TIP'
+
+        TAGS_CHOICES = [(TRAVEL, 'Travel'),
+                        (AR, 'Argentina'), (CL, 'Chile'),
+                        (CUYO, 'Cuyo'), (PATAGONIA, 'Patagonia'), (COSTA, 'Costa Atlántica'),
+                        (BUENOS_AIRES, 'Buenos Aires'), (CENTRO, 'Centro'),
+                        (PARQUES, 'Parques'), (LAGOS, 'Lagos'), (RUTAS, 'Rutas'), (MONTANIAS, 'Montañas'),
+                        (IDEAS, 'Ideas'), (RATA_TIPS, 'Rata-tips')]
+
+        i = 0
+        while TAGS_CHOICES[i][0] != tag.upper():
+            i += 1
+
+        return(TAGS_CHOICES[i][1])
+
+    contexto_global['tag_buscado'] = choices(etiqueta)
+    contexto_global['posts'] = posts
+
+    return render(request, 'resultados.html', contexto_global)
