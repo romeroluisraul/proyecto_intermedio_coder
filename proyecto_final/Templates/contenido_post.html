@@ -3,7 +3,7 @@
 <img src= "{% static 'sierra_quijadas.jpg' %}" alt="Parque Nacional Sierra de las Quijadas" title="PN Sierra de las Quijadas, San Luis, AR"style="width:100%" height="646px">
 <div class="w3-container">
   <h3><b>{{title}}</b></h3>
-  <h5>{{title_description}}<span class="w3-opacity">{{fecha}}</span></h5>
+  <h5>{{title_description}}<span class="w3-opacity">{{fecha|date:"D M d, Y."}}</span></h5>
 </div>
 
 <div class="w3-container">
@@ -33,9 +33,11 @@
   Nam bibendum gravida lectus et fringilla. Integer lacinia fringilla quam, vel facilisis lorem viverra ac. Donec eu mollis lectus. Curabitur a sem mi. Nunc id ex turpis. Aenean rutrum mattis augue eu varius. Nullam mattis dictum urna vel sodales. 
   Suspendisse mauris velit, ornare id tristique eu, blandit eget nisi. Cras feugiat hendrerit neque a iaculis. Vestibulum in tortor dui. Pellentesque ullamcorper efficitur felis eget faucibus. Etiam hendrerit gravida mauris non ultricies.
   </p>
+  <br>
   <p style="text-align:center;">
   <img src= "{% static 'talampaya.jpg' %}" alt="Parque Nacional Talampaya" title="PN Talampaya, La Rioja, AR" style="width:83%" >
   </p>
+  <br>
   <p align="justify">
     Duis nunc eros, vulputate eu est nec, fermentum elementum orci. Nulla porttitor eleifend ante id scelerisque. Curabitur vitae ante odio. Nulla mattis luctus mauris, in commodo eros iaculis non. Nunc fermentum arcu nunc, quis pulvinar felis fermentum vel. 
     Etiam eget ullamcorper tortor, sed pretium orci. Sed eu tortor sem. Maecenas quis lectus sit amet ex pulvinar congue. Curabitur ornare suscipit fringilla. Donec tellus risus, varius ut fermentum et, dignissim sit amet enim. In et tellus et lacus mattis ullamcorper. 

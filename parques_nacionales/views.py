@@ -1,17 +1,19 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
 from parques_nacionales.models import *
 from datetime import date
 from parques_nacionales.forms import *
 from django.db.models import Q
+from datetime import date
 
-contexto_global = {'fecha': date(year=2022,month=11,day=12).strftime("%a %B %d, %Y"),
+contexto_global = {'fecha': date(year=2022,month=11,day=12),
                 'anio' : str(date.today().year),
                 'title': 'Explorando Parques Nacionales',
                 'title_description':'La Argentina cuenta con 38 Parques Nacionales únicos en el mundo. ',
-                
                 }
+
+
 
 def home(request):
 

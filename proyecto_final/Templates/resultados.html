@@ -5,8 +5,9 @@
 
 <div class="w3-card-4 w3-margin w3-white">
     <div class="w3-container">
-        <h3><b>Resultados de la b&uacutesqueda de la etiqueta</b></h3>
-        <h3><b>{{tag_buscado}}:</b></h3>
+        <h3><b>Resultados de la b&uacutesqueda de la etiqueta</b>
+        <span class="w3-tag w3-black w3-margin-bottom">{{tag_buscado}}</span></h3>
+        <h5>A continuaci&oacuten se muestran los principales resultados:</h5>
         <br>
     </div>
 </div>
@@ -21,9 +22,9 @@
   <div class="w3-container">
     <h3><b>{{ post.title }}</b></h3>
     {% if post.readmore_avaliable %}
-    <h5> {{ post.subtitle }} <span class="w3-opacity">{{post.date}}</span></h5>
+    <h5> {{ post.subtitle }} <span class="w3-opacity">{{post.date|date:"D M d, Y."}}</span></h5>
     {% else %}
-    <h5> {{ post.subtitle }} <span class="w3-opacity">Avaliable on {{post.date}}</span></h5>
+    <h5> {{ post.subtitle }} <span class="w3-opacity">Avaliable on {{post.date|date:"D M d, Y."}}</span></h5>
     {% endif %}
   </div>
     
