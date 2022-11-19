@@ -31,4 +31,33 @@
 
     {% endfor %}
 
+    <div class="w3-card-4 w3-margin w3-white">
+        <div class="w3-container">
+            <h4><b>Comentar</b></h4>
+            <h5><span class="w3-opacity">Crear un nuevo comentario</span></h5>
+
+        </div>
+        <div class="w3-container">
+        <form method="post">
+            {% csrf_token %}
+            <p>Usuario:</p>
+            <input type="text" name="commentarist">
+            <p>Comentario:</p>
+            <textarea rows="10" cols="112" name="text_commentary"></textarea>
+            <p></p>
+            <div class="w3-col m4 w3-hide-small w3-right">
+                <p align="right"><button class="w3-button w3-black w3-padding-large w3-margin-bottom" type="submit">Comentar</button></p>
+            </div>
+        </form>
+        </div>
+        <hr>
+
+        {% if script %}
+        <script>
+            alert("Your comment has been saved.");
+        </script>
+        {% endif %}
+        
+    </div>
+
 {% endblock %}

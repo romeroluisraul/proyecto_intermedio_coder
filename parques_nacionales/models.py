@@ -28,3 +28,5 @@ class Post(models.Model):
                     (IDEAS, 'Ideas'), (RATA_TIPS, 'Rata-tips')]
 
     tags = models.CharField(max_length=4, choices=TAGS_CHOICES)
+    post_title = models.TextField(max_length=50)
+    url = models.URLField()
