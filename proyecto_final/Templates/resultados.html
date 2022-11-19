@@ -6,7 +6,7 @@
 <div class="w3-card-4 w3-margin w3-white">
     <div class="w3-container">
         <h3><b>Resultados de la b&uacutesqueda de la etiqueta</b></h3>
-        <h4><b>{{tag_buscado}}</b></h4>
+        <h3><b>{{tag_buscado}}:</b></h3>
         <br>
     </div>
 </div>
@@ -15,32 +15,43 @@
 {% for post in posts %}
 
 <div class="w3-card-4 w3-margin w3-white">
-    {% with ''|add:post.image as image_static %}
-    <img src="{% static image_static %}" alt= "{{ post.image_alt }}" title= "{{ post.image_title }}" style="width:100%">
-    {% endwith %}
-      <div class="w3-container">
-        <h3><b>{{ post.title }}</b></h3>
-        <h5> {{ post.subtitle }} <span class="w3-opacity">Available on {{post.date}}</span></h5>
-      </div>
+  {% with ''|add:post.image as image_static %}
+  <img src="{% static image_static %}" alt= "{{ post.image_alt }}" title= "{{ post.image_title }}" style="width:100%">
+  {% endwith %}
+  <div class="w3-container">
+    <h3><b>{{ post.title }}</b></h3>
+    {% if post.readmore_avaliable %}
+    <h5> {{ post.subtitle }} <span class="w3-opacity">{{post.date}}</span></h5>
+    {% else %}
+    <h5> {{ post.subtitle }} <span class="w3-opacity">Avaliable on {{post.date}}</span></h5>
+    {% endif %}
+  </div>
     
-      <div class="w3-container">
-        <p align="justify">{{post.description}}</p>
-        <div class="w3-row">
-          <div class="w3-col m8 s12">
-            {% if post.readmore_avaliable %}
-            {% with ''|add:post.url as post_url %}
-            <form action="{% url post_url %}">
-            {% endwith %}
-              <p><button class="w3-button w3-padding-large w3-white w3-border"><b>READ MORE »</b></button></p>
-            </form>
-            {% else %}
-            <p><button class="w3-button w3-disabled w3-padding-large w3-white w3-border"><b>READ MORE »</b></button></p>
-            {% endif %}
-          </div>
-        </div>
+  <div class="w3-container">
+    <p align="justify">{{post.description}}</p>
+    <div class="w3-row">
+      <div class="w3-col m8 s12">
+        {% if post.readmore_avaliable %}
+        {% with ''|add:post.url as post_url %}
+        <form action="{% url post_url %}">
+        {% endwith %}
+          <p><button class="w3-button w3-padding-large w3-white w3-border"><b>READ MORE »</b></button></p>
+        </form>
       </div>
+      <div class="w3-col m4 w3-hide-small">
+        <p><span class="w3-padding-large w3-right"><b>Comments  </b><span class="w3-badge">{{cantidad_comentarios}}</span></span></p>
+      </div>  
+        {% else %}
+        <p><button class="w3-button w3-disabled w3-padding-large w3-white w3-border"><b>READ MORE »</b></button></p>
+      </div>
+      <div class="w3-col m4 w3-hide-small">
+        <p><span class="w3-padding-large w3-right"><b>Comments  </b><span class="w3-badge">0</span></span></p>
+      </div>
+        {% endif %}
     </div>
-    <hr>
+  </div>
+</div>
+<hr>
 
 {% endfor %}
 

@@ -80,6 +80,15 @@ def comentarios(request):
 
 def tags(request, tag):
 
+
+    lista_comentarios = Commentary.objects.all()
+
+    contexto_global['home_url'] = request.get_full_path() == '/home/'
+    contexto_global['post_url'] = request.get_full_path() == '/explorando_parques/'
+    contexto_global['lista_comentarios'] = lista_comentarios
+    contexto_global['cantidad_comentarios'] = len(lista_comentarios)
+    contexto_global['script'] = False
+
     etiqueta = tag
     posts = Post.objects.filter(Q(tag1__icontains=etiqueta) | Q(tag2__icontains=etiqueta))
 

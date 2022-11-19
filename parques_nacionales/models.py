@@ -41,3 +41,4 @@ class Post(models.Model):
     date = models.DateField(default=date.today())
 
 
+
