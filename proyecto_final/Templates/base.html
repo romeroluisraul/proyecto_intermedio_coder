@@ -9,24 +9,68 @@
 <style>
 body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 </style>
+
+<style>
+  .div-blue {
+      background-color: #5074B4;
+  }
+  .div-dark-gray {
+      background-color: #616161;
+  }
+  .div-gray {
+      background-color: #F1F1F1;
+      box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+  }
+</style>
 </head>
-<body class="w3-light-grey">
+
 {% load static %}
+
+<body class="w3-light-grey">
 
 <!-- w3-content defines a container for fixed size centered content, 
 and is wrapped around the whole page content, except for the footer in this example -->
 <div class="w3-content" style="max-width:1400px">
 
-
 <!-- Header -->
-<header class="w3-container w3-center w3-padding-32"> 
-  <h1><b>MI BLOG: En Ruta por Argentina</b></h1>
-  <p>Welcome to the blog of <span class="w3-tag">Luis Raul Romero</span></p>
+<header class="w3-container w3-padding-16"> 
+  <div class="div-gray">
+    <div class="div-dark-gray" style="width:100%; height: 40px;">
+      <div class="w3-container w3-dark-gray" style="width:100%">
+        <div class="w3-content w3-right">
+          <form action="#" style="display:inline-block">
+            <button class="w3-button w3-dark-gray w3-padding" type="submit"><b>Sign-up</b></button>
+          </form>
+          <form action="{% url 'log_in' %}" style="display:inline-block">
+            <button class="w3-button w3-dark-gray w3-padding" type="submit"><b>Log-in</b></button>
+          </form>
+          <form action="{% url 'log_out' %}" style="display:inline-block">
+            <button class="w3-button w3-dark-gray w3-padding" type="submit"><b>Log-out</b></button>
+          </form>
+          <form action="#" style="display:inline-block">
+            <button class="w3-button w3-dark-gray w3-padding" type="submit"><b>My Account</b></button>
+          </form>
+          <img src="{% static 'profile_user_icon-copia.png' %}" style="height: 32px;">
+          {% if request.user.is_authenticated %}
+          <b>{{request.user}}</b>
+          {% else %}
+          <b>Invitado</b>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="w3-container w3-center">
+      <h1 align="center"><b>MI BLOG: En Ruta por Argentina</b></h1>
+    </div>
+    <div class="div-blue" style="width:100%; height: 10px;"></div>
+  </div>
+  <div class="w3-container w3-center">
+    <p align="center">Welcome to the blog of <span class="w3-tag">Luis Raul Romero</span></p>
+  </div>
 </header>
 
 <!-- Grid -->
 <div class="w3-row">
-
 <!-- Blog entries -->
 <div class="w3-col l8 s12">
   {% block content %}{% endblock %}
@@ -35,14 +79,15 @@ and is wrapped around the whole page content, except for the footer in this exam
 <!-- Introduction menu -->
 <div class="w3-col l4">
   <!-- About Card -->
-  <div class="w3-card w3-margin w3-margin-top">
+  <div class="w3-card w3-margin w3-margin-top"> 
   <img src="{% static 'el_autor_copia.jpg' %}" alt="Imagen del Autor" title="El autor en el Cerro Santa Lucía, Santiago Centro, CL" style="width:100%">
     <div class="w3-container w3-white">
       <h4><b>Acerca del autor</b></h4>
       <p align="justify">Just me, myself and I, exploring the universe of uknownment. I have a heart of love and an interest of lorem ipsum and mauris neque quam blog. I want to share my world with you.</p>
     </div>
   </div><hr>
-  
+
+
   <!-- Posts -->
   <div class="w3-card w3-margin">
     <div class="w3-container w3-padding">

@@ -1,19 +1,22 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
 from parques_nacionales.models import *
-from datetime import date
 from parques_nacionales.forms import *
 from django.db.models import Q
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.decorators import login_required
+
 from datetime import date
-
-contexto_global = {'fecha': date(year=2022,month=11,day=12),
-                'anio' : str(date.today().year),
-                'title': 'Explorando Parques Nacionales',
-                'title_description':'La Argentina cuenta con 38 Parques Nacionales únicos en el mundo. ',
-                }
+from time import sleep
 
 
+
+contexto_global = {'anio' : str(date.today().year),
+                   'title': 'Explorando Parques Nacionales',
+                   'title_description': 'La Argentina cuenta con 38 Parques Nacionales únicos en el mundo. ',
+                   'fecha': date(2022,11,9)}
 
 def home(request):
 
@@ -21,13 +24,14 @@ def home(request):
 
     contexto_global['home_url'] = request.get_full_path() == '/home/'
     contexto_global['post_url'] = request.get_full_path() == '/explorando_parques/'
+    contexto_global['pagina_actual'] = request.get_full_path()
     contexto_global['lista_comentarios'] = lista_comentarios
     contexto_global['cantidad_comentarios'] = len(lista_comentarios)
 
-    plantilla = loader.get_template('home.html')
-    documento = plantilla.render(contexto_global)
+    post_second = Post.objects.get(title__icontains = 'salimos?')
+    contexto_global['post_snd'] = post_second
 
-    return HttpResponse(documento)
+    return render(request, 'home.html', contexto_global)
 
 def explorando(request):
 
@@ -35,6 +39,7 @@ def explorando(request):
 
     contexto_global['home_url'] = request.get_full_path() == '/home/'
     contexto_global['post_url'] = request.get_full_path() == '/explorando_parques/'
+    contexto_global['pagina_actual'] = request.get_full_path()
     contexto_global['lista_comentarios'] = lista_comentarios
     contexto_global['cantidad_comentarios'] = len(lista_comentarios)
 
@@ -49,10 +54,10 @@ def comentarios(request):
 
     contexto_global['home_url'] = request.get_full_path() == '/home/'
     contexto_global['post_url'] = request.get_full_path() == '/explorando_parques/'
+    contexto_global['pagina_actual'] = request.get_full_path()
     contexto_global['lista_comentarios'] = lista_comentarios
     contexto_global['cantidad_comentarios'] = len(lista_comentarios)
     contexto_global['script'] = False
-
 
     if request.method == 'POST':
 
@@ -61,7 +66,7 @@ def comentarios(request):
         if mi_formulario.is_valid():
 
             informacion = mi_formulario.cleaned_data
-            nuevo_comentario = Commentary(commentarist = informacion['commentarist'],
+            nuevo_comentario = Commentary(commentarist = request.user,
                                     text_commentary = informacion['text_commentary'],
                                     date_commentary = datetime.now())
             nuevo_comentario.save()
@@ -72,6 +77,7 @@ def comentarios(request):
 
             errors = mi_formulario.errors 
             contexto_global['errors'] = errors
+            print(errors)
             
     mi_formulario = CommentaryForm()
 
@@ -87,6 +93,7 @@ def tags(request, tag):
 
     contexto_global['home_url'] = request.get_full_path() == '/home/'
     contexto_global['post_url'] = request.get_full_path() == '/explorando_parques/'
+    contexto_global['pagina_actual'] = request.get_full_path()
     contexto_global['lista_comentarios'] = lista_comentarios
     contexto_global['cantidad_comentarios'] = len(lista_comentarios)
     contexto_global['script'] = False
@@ -118,3 +125,76 @@ def tags(request, tag):
     contexto_global['posts'] = posts
 
     return render(request, 'resultados.html', contexto_global)
+
+def logeo_user(request):
+
+    contexto_global['home_url'] = request.get_full_path() == '/home/'
+    contexto_global['post_url'] = request.get_full_path() == '/explorando_parques/'
+
+    if request.method == 'POST':
+
+        form = AuthenticationForm(request, data = request.POST)
+
+        if form.is_valid():
+
+            print(type(form.cleaned_data))
+
+            usuario = form.cleaned_data['username']
+            contra = form.cleaned_data['password']
+
+            user = authenticate(username=usuario, password = contra)
+
+            if user is not None:
+
+                login(request, user)
+                contexto_global['contador'] = 0
+                respuesta = redirect('bienvenida')
+
+            else:
+                errores = form.errors
+                contexto_global['errores_acceso'] = errores
+                respuesta = render(request, 'acceso_usuarios.html', contexto_global)
+                print(errores)
+        else:
+            errores = form.errors
+            contexto_global['errores_acceso'] = errores
+            respuesta = render(request, 'acceso_usuarios.html', contexto_global)
+
+    if request.method == 'GET':
+
+        contexto_global['errores_acceso'] = False
+        contexto_global['form_usuarios'] = True
+        respuesta = render(request, 'acceso_usuarios.html', contexto_global)
+    
+    form = AuthenticationForm()
+
+    return respuesta
+
+@login_required
+def bienvenida(request):
+
+    if contexto_global['contador'] == 0:
+
+        contexto_global['contador'] += 1
+        respuesta = render(request, 'bienvenida.html', contexto_global)
+
+    else:
+        sleep(2)
+        respuesta = redirect(contexto_global['pagina_actual'])
+
+    return respuesta
+
+@login_required
+def deslogeo_user(request, destino = ''):
+    
+    logout(request)
+
+    if destino != '':
+
+        respuesta = redirect(destino)
+
+    else:
+
+        respuesta = redirect(contexto_global['pagina_actual'])
+
+    return respuesta

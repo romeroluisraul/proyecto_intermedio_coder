@@ -1,5 +1,5 @@
 from django.db import models
-from datetime import date
+from django.utils.timezone import now as django_now
 
 class Users(models.Model):
 
@@ -38,7 +38,7 @@ class Post(models.Model):
     image_title = models.CharField(max_length=50)
     readmore_avaliable = models.BooleanField()
     description = models.TextField(max_length=300)
-    date = models.DateField(default=date.today())
+    date = models.DateField(default=django_now)
 
 
 
